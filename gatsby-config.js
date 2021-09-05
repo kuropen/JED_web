@@ -1,3 +1,7 @@
+require('dotenv').config()
+
+const serverUrl = process.env.GRAPHQL_SERVER || "https://jed.kuropen.org/graphql"
+
 module.exports = {
   siteMetadata: {
     siteUrl: "https://jed.kuropen.org/",
@@ -33,7 +37,7 @@ module.exports = {
         // Field under which the remote schema will be accessible. You'll use this in your Gatsby query
         fieldName: "jedGraph",
         // Url to query from
-        url: "https://jed.kuropen.org/graphql",
+        url: serverUrl,
       },
     }
   ],

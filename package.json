@@ -27,6 +27,7 @@
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
     "@types/react-helmet": "^6.1.2",
+    "dotenv": "^10.0.0",
     "framer-motion": "^4.1.17",
     "gatsby": "^3.13.0",
     "gatsby-plugin-image": "^1.13.0",
