@@ -1,4 +1,4 @@
-# Japan Electricity Dashboard - Server
+# Japan Electricity Dashboard - Web Frontend
 
 **Think about "now" of electricity.**
 

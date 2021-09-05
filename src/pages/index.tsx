@@ -78,6 +78,9 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.FrontpageQuery>> = ({data}) => {
               <Text mr="2">詳細を確認する</Text>
               <ArrowRightIcon />
             </Flex>
+            <Box textAlign="right">
+              ({area.longName}のサイトに移動します)
+            </Box>
           </Link>
         </Box>
       </Box>
