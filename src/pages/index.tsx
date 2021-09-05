@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "@chakra-ui/icons"
-import { Box, Stat, StatGroup, Text, StatLabel, StatNumber, Heading, SimpleGrid, CircularProgress, CircularProgressLabel, Flex, Spacer, Link } from "@chakra-ui/react"
+import { Box, Stat, StatGroup, Text, StatLabel, StatNumber, Heading, SimpleGrid, CircularProgress, CircularProgressLabel, Flex, Spacer, LinkOverlay, LinkBox } from "@chakra-ui/react"
 import { graphql, PageProps } from "gatsby"
 import * as React from "react"
 import Layout from "../components/layout"
@@ -71,18 +71,18 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.FrontpageQuery>> = ({data}) => {
             {peakView}
           </Stat>
         </StatGroup>
-        <Box as="nav" borderTop="1px" borderTopColor="gray.200" pt="3" mt="3">
-          <Link href={area.officialWeb}>
-            <Flex align="center">
-              <Spacer />
-              <Text mr="2">詳細を確認する</Text>
-              <ArrowRightIcon />
-            </Flex>
-            <Box textAlign="right">
-              ({area.longName}のサイトに移動します)
-            </Box>
-          </Link>
-        </Box>
+        <LinkBox as="nav" borderTop="1px" borderTopColor="gray.200" pt="3" mt="3">
+          <Flex align="center">
+            <Spacer />
+            <Text mr="2">
+              <LinkOverlay href={area.officialWeb}>詳細を確認する</LinkOverlay>
+            </Text>
+            <ArrowRightIcon />
+          </Flex>
+          <Box textAlign="right">
+            ({area.longName}のサイトに移動します)
+          </Box>
+        </LinkBox>
       </Box>
     )
   })

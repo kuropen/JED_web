@@ -1,8 +1,9 @@
-import { Box, ChakraProvider, Heading, Link } from "@chakra-ui/react"
+import { Box, ChakraProvider, Flex, Heading, Link, LinkBox, LinkOverlay, VisuallyHidden } from "@chakra-ui/react"
+import { InfoIcon } from "@chakra-ui/icons";
 import { Helmet } from "react-helmet";
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery, Link as GatsbyLink } from "gatsby"
 
 import "@fontsource/orbitron/700.css"
 import PlexFontTheme from "./plexFontTheme"
@@ -35,23 +36,31 @@ query LayoutMeta {
             </Helmet>
             <Box as="main" maxW={{base: "container.sm", lg: "container.lg", xl: "container.xl"}} mx="auto" mt="2" mb="2">
                 {/* TODO: 更新通知実装したときは pb=36 入れる */}
-                <Box as="aside" float="left" d={{base: "none", md: "block"}}>
-                    <StaticImage src="../images/elecwarn_icon.png" alt="From Electricity Warning Project" width={48} />
-                </Box>
-                <Box as="header">
+                <Flex
+                    my="2"
+                    pb="2"
+                    borderBottom="2px"
+                    borderBottomColor="gray"
+                    as="header"
+                    align="center"
+                >
+                    <Box as="aside" d={{base: "none", md: "block"}}>
+                        <StaticImage src="../images/elecwarn_icon.png" alt="From Electricity Warning Project" width={48} />
+                    </Box>
                     <Heading
                         as="h1"
                         size="xl"
                         fontFamily="Orbitron, sans-serif"
-                        my="2"
-                        pb="2"
-                        borderBottom="2px"
-                        borderBottomColor="gray"
                         textAlign="center"
+                        flex="1"
                     >
                         Japan Electricity Dashboard
                     </Heading>
-                </Box>
+                    <LinkBox as="nav">
+                        <InfoIcon w="32px" h="32px" />
+                        <LinkOverlay as={GatsbyLink} to="/about"><VisuallyHidden>はじめに</VisuallyHidden></LinkOverlay>
+                    </LinkBox>
+                </Flex>
                 <Box>
                     {children}
                 </Box>

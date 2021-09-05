@@ -39,6 +39,15 @@ module.exports = {
         // Url to query from
         url: serverUrl,
       },
-    }
+    },
+    "gatsby-transformer-remark",
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "assets",
+        path: "./src/assets/",
+      },
+      __key: "assets",
+    },
   ],
 };
