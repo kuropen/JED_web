@@ -3582,23 +3582,10 @@ type GraphQLSourceSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type FrontpageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type FrontpageQuery = { readonly jedGraph: { readonly allArea: ReadonlyArray<(
-      Pick<JED_Area, 'code' | 'name' | 'longName' | 'officialWeb'>
-      & { readonly peak: Maybe<ReadonlyArray<Maybe<Pick<JED_PeakElectricity, 'date' | 'expectedHour' | 'percentage' | 'amount' | 'supply'>>>>, readonly hourly: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'hour' | 'absTime' | 'percentage' | 'amount' | 'supply'>>>> }
-    )> } };
-
 type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type AboutQuery = { readonly markdownRemark: Maybe<Pick<MarkdownRemark, 'html'>> };
-
-type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -3625,6 +3612,19 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
+type FrontpageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type FrontpageQuery = { readonly jedGraph: { readonly allArea: ReadonlyArray<(
+      Pick<JED_Area, 'code' | 'name' | 'longName' | 'officialWeb'>
+      & { readonly peak: Maybe<ReadonlyArray<Maybe<Pick<JED_PeakElectricity, 'date' | 'expectedHour' | 'percentage' | 'amount' | 'supply'>>>>, readonly hourly: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'hour' | 'absTime' | 'percentage' | 'amount' | 'supply'>>>> }
+    )>, readonly hourlyDemand: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'createdAt'>>>> } };
+
+type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
 type LayoutMetaQueryVariables = Exact<{ [key: string]: never; }>;
 
