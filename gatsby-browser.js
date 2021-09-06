@@ -14,15 +14,11 @@ const theme = extendTheme({
     }
 })
 
-interface WrapRootElementArgs {
-    element: React.Component
-}
-
-export const wrapRootElement = (bind: WrapRootElementArgs) => {
+export const wrapRootElement = (bind) => {
     const {element} = bind
     return (
         <ChakraProvider theme={theme}>
             {element}
         </ChakraProvider>
-    );
-};
+    )
+}
