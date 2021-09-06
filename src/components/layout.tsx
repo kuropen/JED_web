@@ -1,5 +1,5 @@
 import { Box, ChakraProvider, Flex, Heading, Link, LinkBox, LinkOverlay, VisuallyHidden } from "@chakra-ui/react"
-import { InfoIcon } from "@chakra-ui/icons";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { Helmet } from "react-helmet";
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
@@ -44,9 +44,10 @@ query LayoutMeta {
                     as="header"
                     align="center"
                 >
-                    <Box as="aside" d={{base: "none", md: "block"}}>
+                    <LinkBox as="nav" d={{base: "none", md: "block"}}>
                         <StaticImage src="../images/elecwarn_icon.png" alt="From Electricity Warning Project" width={48} />
-                    </Box>
+                        <LinkOverlay as={GatsbyLink} to="/"><VisuallyHidden>トップページに戻る</VisuallyHidden></LinkOverlay>
+                    </LinkBox>
                     <Heading
                         as="h1"
                         size="xl"
@@ -54,10 +55,12 @@ query LayoutMeta {
                         textAlign="center"
                         flex="1"
                     >
-                        Japan Electricity Dashboard
+                        <Link as={GatsbyLink} to="/">
+                            Japan Electricity Dashboard
+                        </Link>
                     </Heading>
                     <LinkBox as="nav">
-                        <InfoIcon w="32px" h="32px" />
+                        <InfoOutlineIcon w="32px" h="32px" />
                         <LinkOverlay as={GatsbyLink} to="/about"><VisuallyHidden>はじめに</VisuallyHidden></LinkOverlay>
                     </LinkBox>
                 </Flex>
@@ -65,10 +68,10 @@ query LayoutMeta {
                     {children}
                 </Box>
                 <Box as="address" fontStyle="normal" mx="2" mt="5">
-                    Copyright &copy; <Link href="https://kuropen.org/" rel="author">Kuropen</Link>. 
-                    Licensed under <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license">Creative Commons Attribution-NonCommercial-ShareAlike 4.0</Link> License.<br />
-                    Electricity Warning Project Icon is provided by <Link href="https://twitter.com/haretter">Hareta</Link> and 
-                    licensed under <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0</Link> License.
+                    Copyright &copy; <Link href="https://kuropen.org/" rel="author" isExternal>Kuropen</Link>. 
+                    Licensed under <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license" isExternal>Creative Commons Attribution-NonCommercial-ShareAlike 4.0</Link> License.<br />
+                    Electricity Warning Project Icon is provided by <Link href="https://twitter.com/haretter" isExternal>Hareta</Link> and 
+                    licensed under <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/" isExternal>Creative Commons Attribution-NonCommercial-ShareAlike 3.0</Link> License.
                 </Box>
             </Box>
         </ChakraProvider>

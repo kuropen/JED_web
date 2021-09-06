@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from "@chakra-ui/icons"
-import { Box, Flex, Heading, LinkBox, LinkOverlay, Text } from "@chakra-ui/layout"
+import { Box, Flex, Heading, LinkBox, LinkOverlay, Text, Link as ChakraLink } from "@chakra-ui/layout"
 import { Table, Td, Th, Tr } from "@chakra-ui/table"
 import { graphql, Link, PageProps } from "gatsby"
 import Markdown from "markdown-to-jsx"
@@ -36,6 +36,12 @@ const AboutPage: React.FC<PageProps<GatsbyTypes.AboutQuery>> = ({data}) => {
                                 component: Text,
                                 props: {
                                     my: 2
+                                }
+                            },
+                            a: {
+                                component: ChakraLink,
+                                props: {
+                                    isExternal: true,
                                 }
                             }
                         }
