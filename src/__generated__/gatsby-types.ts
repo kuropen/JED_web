@@ -311,8 +311,14 @@ type SitePage = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly internal: Internal;
   readonly isCreatedByStatefulCreatePages: Maybe<Scalars['Boolean']>;
+  readonly context: Maybe<SitePageContext>;
   readonly pluginCreator: Maybe<SitePlugin>;
   readonly pluginCreatorId: Maybe<Scalars['String']>;
+};
+
+type SitePageContext = {
+  readonly code: Maybe<Scalars['String']>;
+  readonly targetDate: Maybe<Scalars['Date']>;
 };
 
 type ImageFormat =
@@ -843,6 +849,7 @@ type JED_areaByCodeArgs = {
 type JED_peakElectricityArgs = {
   date: Maybe<Scalars['String']>;
   type: Maybe<JED_PeakType>;
+  areaCode: Maybe<Scalars['String']>;
 };
 
 
@@ -1041,6 +1048,7 @@ type Query_sitePageArgs = {
   children: Maybe<NodeFilterListInput>;
   internal: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages: Maybe<BooleanQueryOperatorInput>;
+  context: Maybe<SitePageContextFilterInput>;
   pluginCreator: Maybe<SitePluginFilterInput>;
   pluginCreatorId: Maybe<StringQueryOperatorInput>;
 };
@@ -2397,6 +2405,11 @@ type SiteFunctionSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
+type SitePageContextFilterInput = {
+  readonly code: Maybe<StringQueryOperatorInput>;
+  readonly targetDate: Maybe<DateQueryOperatorInput>;
+};
+
 type SitePluginFilterInput = {
   readonly id: Maybe<StringQueryOperatorInput>;
   readonly parent: Maybe<NodeFilterInput>;
@@ -2617,6 +2630,8 @@ type SitePageFieldsEnum =
   | 'internal.owner'
   | 'internal.type'
   | 'isCreatedByStatefulCreatePages'
+  | 'context.code'
+  | 'context.targetDate'
   | 'pluginCreator.id'
   | 'pluginCreator.parent.id'
   | 'pluginCreator.parent.parent.id'
@@ -2723,6 +2738,7 @@ type SitePageFilterInput = {
   readonly children: Maybe<NodeFilterListInput>;
   readonly internal: Maybe<InternalFilterInput>;
   readonly isCreatedByStatefulCreatePages: Maybe<BooleanQueryOperatorInput>;
+  readonly context: Maybe<SitePageContextFilterInput>;
   readonly pluginCreator: Maybe<SitePluginFilterInput>;
   readonly pluginCreatorId: Maybe<StringQueryOperatorInput>;
 };
@@ -3582,6 +3598,22 @@ type GraphQLSourceSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
+type AreaPageQueryVariables = Exact<{
+  code: Scalars['String'];
+  targetDate: Scalars['String'];
+}>;
+
+
+type AreaPageQuery = { readonly jedGraph: { readonly areaByCode: Maybe<Pick<JED_Area, 'id' | 'code' | 'name' | 'longName' | 'officialWeb' | 'hasWindData'>>, readonly peakElectricity: Maybe<ReadonlyArray<Maybe<Pick<JED_PeakElectricity, 'type' | 'amount' | 'supply' | 'percentage' | 'expectedHour'>>>>, readonly hourlyDemand: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'absTime' | 'hour' | 'amount' | 'supply' | 'percentage' | 'createdAt'>>>> } };
+
+type FrontpageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type FrontpageQuery = { readonly jedGraph: { readonly allArea: ReadonlyArray<(
+      Pick<JED_Area, 'code' | 'name' | 'longName' | 'officialWeb'>
+      & { readonly peak: Maybe<ReadonlyArray<Maybe<Pick<JED_PeakElectricity, 'date' | 'expectedHour' | 'percentage' | 'amount' | 'supply'>>>>, readonly hourly: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'hour' | 'absTime' | 'percentage' | 'amount' | 'supply'>>>> }
+    )>, readonly hourlyDemand: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'createdAt'>>>> } };
+
 type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3612,14 +3644,6 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type FrontpageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type FrontpageQuery = { readonly jedGraph: { readonly allArea: ReadonlyArray<(
-      Pick<JED_Area, 'code' | 'name' | 'longName' | 'officialWeb'>
-      & { readonly peak: Maybe<ReadonlyArray<Maybe<Pick<JED_PeakElectricity, 'date' | 'expectedHour' | 'percentage' | 'amount' | 'supply'>>>>, readonly hourly: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'hour' | 'absTime' | 'percentage' | 'amount' | 'supply'>>>> }
-    )>, readonly hourlyDemand: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'createdAt'>>>> } };
 
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 

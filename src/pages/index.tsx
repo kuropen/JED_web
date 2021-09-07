@@ -1,90 +1,45 @@
-import { ArrowRightIcon, RepeatIcon } from "@chakra-ui/icons"
-import { Box, Stat, StatGroup, Text, StatLabel, StatNumber, Heading, SimpleGrid, CircularProgress, CircularProgressLabel, Flex, Spacer, LinkOverlay, LinkBox, useColorModeValue, Alert, AlertIcon, Button } from "@chakra-ui/react"
+import { ArrowRightIcon } from "@chakra-ui/icons"
+import { Box, StatGroup, Text, StatLabel, Heading, SimpleGrid, Flex, Spacer, LinkOverlay, LinkBox, useColorModeValue, VisuallyHidden } from "@chakra-ui/react"
 import { graphql, PageProps } from "gatsby"
 import moment from "moment-timezone"
 import * as React from "react"
 import Layout from "../components/layout"
-import getProgressColor from "../utilities/getProgressColor"
+import LastUpdateBox from "../components/lastUpdateBox"
+import DemandStat from "../components/demandStat"
+import GatsbyLink from "gatsby-link"
+import { HourlyDemandDefaultValues, PeakElectricityDefaultValues } from "../utilities/defaultValues"
 
 const IndexPage: React.FC<PageProps<GatsbyTypes.FrontpageQuery>> = ({data}) => {
   const areaInfoBoxes = data.jedGraph.allArea.map((area) => {
-    let hourlyView = (
-      <>
-        <StatLabel>直近の1時間使用率</StatLabel>
-        <StatNumber>データがありません</StatNumber>
-      </>
-    )
-    if (area.hourly !== undefined && area.hourly[0] !== undefined) {
-      const {hour, percentage, amount, supply} = area.hourly[0]
-      const hourlyColor = getProgressColor(percentage)
-      hourlyView = (
-        <>
-            <StatLabel pb={{base: '1.5em', md: 'inherit'}}>{hour}時台の使用状況</StatLabel>
-            <StatNumber>
-              <CircularProgress value={percentage} color={hourlyColor} size="100px" float={{base: 'none', md: 'right'}}>
-                <CircularProgressLabel>
-                  <Text fontSize={{base: 'xl', md: 'inherit'}}>{percentage}%</Text>
-                  <Text d={{base: 'block', md: 'none'}} fontSize="xs">({amount}/{supply})</Text>
-                </CircularProgressLabel>
-              </CircularProgress>
-              <Text d={{base: 'none', md: 'block'}}>{amount}/{supply} 万kW</Text>
-            </StatNumber>
-        </>
-      )
-    }
-    let peakView = (
-      <>
-        <StatLabel>本日の予想ピーク使用率</StatLabel>
-        <StatNumber>データがありません</StatNumber>
-      </>
-    )
-    if (area.peak !== undefined && area.peak[0] !== undefined) {
-      const {expectedHour, percentage, amount, supply} = area.peak[0]
-      const peakColor = getProgressColor(percentage)
-      peakView = (
-        <>
-            <StatLabel>
-              <Text d={{base: 'block', md: 'inline'}}>予想ピーク使用率</Text>
-              <Text d={{base: 'block', md: 'inline'}}>({expectedHour})</Text>
-            </StatLabel>
-            <StatNumber>
-              <CircularProgress value={percentage} color={peakColor} size="100px" float={{base: 'none', md: 'right'}}>
-                <CircularProgressLabel>
-                  <Text fontSize={{base: 'xl', md: 'inherit'}}>{percentage}%</Text>
-                  <Text d={{base: 'block', md: 'none'}} fontSize="xs">({amount}/{supply})</Text>
-                </CircularProgressLabel>
-              </CircularProgress>
-              <Text d={{base: 'none', md: 'block'}}>{amount}/{supply} 万kW</Text>
-            </StatNumber>
-        </>
-      )
-    }
     const statFontColor = useColorModeValue("black", "gray.200")
     const statBgColor = useColorModeValue("white", "gray.900")
+    const peak = (area.peak !== undefined && area.peak[0] !== undefined) ? area.peak[0] : PeakElectricityDefaultValues
+    const hourly = (area.hourly !== undefined && area.hourly[0] !== undefined) ? area.hourly[0] : HourlyDemandDefaultValues
+
     return (
-      <Box key={area.code} m="2" p="2" borderRadius="lg" boxShadow="lg" bg={statBgColor} color={statFontColor}>
+      <Box key={area.code} as="section" m="2" p="2" borderRadius="lg" boxShadow="lg" bg={statBgColor} color={statFontColor}>
         <Heading as="h3" size="md" textAlign="center" borderBottom="1px" borderBottomColor="gray.200" pb="3" mb="3">
           {area.name}エリア
         </Heading>
         <StatGroup>
-          <Stat mr="1.5">
-            {hourlyView}
-          </Stat>
-          <Stat ml="1.5">
-            {peakView}
-          </Stat>
+          <DemandStat mr="1.5" percentage={hourly.percentage} amount={hourly.amount} supply={hourly.supply}>
+            <StatLabel pb={{base: '1.5em', md: 'inherit'}}>{hourly.hour}時台の使用状況</StatLabel>
+          </DemandStat>
+          <DemandStat ml="1.5" percentage={peak.percentage} amount={peak.amount} supply={peak.supply}>
+            <Box>
+              <Text d={{base: 'block', md: 'inline'}}>予想ピーク使用率</Text>
+              <Text d={{base: 'block', md: 'inline'}}>({peak.expectedHour})</Text>
+            </Box>
+          </DemandStat>
         </StatGroup>
         <LinkBox as="nav" borderTop="1px" borderTopColor="gray.200" pt="3" mt="3">
           <Flex align="center">
             <Spacer />
             <Text mr="2">
-              <LinkOverlay href={area.officialWeb}>詳細を確認する</LinkOverlay>
+              <LinkOverlay as={GatsbyLink} to={`/${area.code}`}>詳細を確認する</LinkOverlay>
             </Text>
             <ArrowRightIcon />
           </Flex>
-          <Box textAlign="right">
-            ({area.longName}のサイトに移動します)
-          </Box>
         </LinkBox>
       </Box>
     )
@@ -94,22 +49,10 @@ const IndexPage: React.FC<PageProps<GatsbyTypes.FrontpageQuery>> = ({data}) => {
   const lastUpdateShown = moment(lastUpdate).tz("Asia/Tokyo").format("YYYY年MM月DD日 HH時mm分")
   return (
     <Layout>
-      <Flex align="center" direction={{base: 'column', md: 'row'}} mx="2">
-        <Alert status="info" flex="1">
-          <AlertIcon />
-          <Text>
-            最終更新: {lastUpdateShown}
-          </Text>
-        </Alert>
-        <Box w={{base: 'full', md: 'fit-content'}}>
-          <Button colorScheme="teal" variant="outline" w="full" onClick={() => window.location.reload()}>
-            <RepeatIcon />
-            <Text ml="2">
-              最新の情報に更新
-            </Text>
-          </Button>
-        </Box>
-      </Flex>
+      <Heading as="h2">
+        <VisuallyHidden>全国の電力使用状況</VisuallyHidden>
+      </Heading>
+      <LastUpdateBox lastUpdate={lastUpdateShown} />
       <SimpleGrid columns={{base: 1, lg: 2}}>
         {areaInfoBoxes}
       </SimpleGrid>
