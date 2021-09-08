@@ -16,11 +16,8 @@ const LastUpdateBox: React.FC<LastUpdateBoxProps> = ({lastUpdate}) => {
           </Text>
         </Alert>
         <Box w={{base: 'full', md: 'fit-content'}}>
-          <Button colorScheme="teal" variant="outline" w="full" onClick={() => window.location.reload()}>
-            <RepeatIcon />
-            <Text ml="2">
-              最新の情報に更新
-            </Text>
+          <Button colorScheme="teal" variant="outline" w="full" onClick={() => window.location.reload()} leftIcon={<RepeatIcon />}>
+            最新の情報に更新
           </Button>
         </Box>
       </Flex>

@@ -47,9 +47,9 @@ const AreaPage: React.FC<PageProps<GatsbyTypes.AreaPageQuery>> = ({data}) => {
     return (
         <Layout>
             <LastUpdateBox lastUpdate={lastUpdateDate} />
-            <Box key={area?.code} m="2" p="2" borderRadius="lg" boxShadow="lg" bg={statBgColor} color={statFontColor} maxWidth="3xl" mx="auto">
+            <Box key={area?.code} my="2" p="2" borderRadius="lg" boxShadow="lg" bg={statBgColor} color={statFontColor} maxWidth="3xl" mx={{base: "2", md: "auto"}}>
                 <Heading as="h2" size="lg" textAlign="center" borderBottom="1px" borderBottomColor="gray.200" pb="3" mb="3">
-                    {area?.name}エリアの電力使用状況
+                    {area?.name}エリア
                 </Heading>
                 <Box as="section">
                     <StatGroup>
@@ -86,13 +86,10 @@ const AreaPage: React.FC<PageProps<GatsbyTypes.AreaPageQuery>> = ({data}) => {
                 </Box>
                 <Center as="nav" mt="8">
                     <LinkBox>
-                        <Button colorScheme="blue">
-                            <LinkIcon />
-                            <Text ml="2">
-                                <LinkOverlay isExternal href={area?.officialWeb}>
-                                    {area?.longName}のサイトで詳細を確認
-                                </LinkOverlay>
-                            </Text>
+                        <Button colorScheme="blue" leftIcon={<LinkIcon />}>
+                            <LinkOverlay isExternal href={area?.officialWeb}>
+                                {area?.longName}のサイトへ
+                            </LinkOverlay>
                         </Button>
                     </LinkBox>
                 </Center>

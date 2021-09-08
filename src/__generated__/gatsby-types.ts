@@ -262,8 +262,6 @@ type Directory_ctimeArgs = {
 type Site = Node & {
   readonly buildTime: Maybe<Scalars['Date']>;
   readonly siteMetadata: Maybe<SiteSiteMetadata>;
-  readonly port: Maybe<Scalars['Int']>;
-  readonly host: Maybe<Scalars['String']>;
   readonly polyfill: Maybe<Scalars['Boolean']>;
   readonly pathPrefix: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
@@ -682,6 +680,8 @@ type SitePluginPluginOptions = {
   readonly typeName: Maybe<Scalars['String']>;
   readonly fieldName: Maybe<Scalars['String']>;
   readonly url: Maybe<Scalars['String']>;
+  readonly bucketName: Maybe<Scalars['String']>;
+  readonly region: Maybe<Scalars['String']>;
   readonly pathCheck: Maybe<Scalars['Boolean']>;
   readonly allExtensions: Maybe<Scalars['Boolean']>;
   readonly isTSX: Maybe<Scalars['Boolean']>;
@@ -995,8 +995,6 @@ type Query_allDirectoryArgs = {
 type Query_siteArgs = {
   buildTime: Maybe<DateQueryOperatorInput>;
   siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  port: Maybe<IntQueryOperatorInput>;
-  host: Maybe<StringQueryOperatorInput>;
   polyfill: Maybe<BooleanQueryOperatorInput>;
   pathPrefix: Maybe<StringQueryOperatorInput>;
   id: Maybe<StringQueryOperatorInput>;
@@ -2119,8 +2117,6 @@ type SiteFieldsEnum =
   | 'siteMetadata.title'
   | 'siteMetadata.description'
   | 'siteMetadata.siteUrl'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2222,8 +2218,6 @@ type SiteGroupConnection = {
 type SiteFilterInput = {
   readonly buildTime: Maybe<DateQueryOperatorInput>;
   readonly siteMetadata: Maybe<SiteSiteMetadataFilterInput>;
-  readonly port: Maybe<IntQueryOperatorInput>;
-  readonly host: Maybe<StringQueryOperatorInput>;
   readonly polyfill: Maybe<BooleanQueryOperatorInput>;
   readonly pathPrefix: Maybe<StringQueryOperatorInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
@@ -2447,6 +2441,8 @@ type SitePluginPluginOptionsFilterInput = {
   readonly typeName: Maybe<StringQueryOperatorInput>;
   readonly fieldName: Maybe<StringQueryOperatorInput>;
   readonly url: Maybe<StringQueryOperatorInput>;
+  readonly bucketName: Maybe<StringQueryOperatorInput>;
+  readonly region: Maybe<StringQueryOperatorInput>;
   readonly pathCheck: Maybe<BooleanQueryOperatorInput>;
   readonly allExtensions: Maybe<BooleanQueryOperatorInput>;
   readonly isTSX: Maybe<BooleanQueryOperatorInput>;
@@ -2693,6 +2689,8 @@ type SitePageFieldsEnum =
   | 'pluginCreator.pluginOptions.typeName'
   | 'pluginCreator.pluginOptions.fieldName'
   | 'pluginCreator.pluginOptions.url'
+  | 'pluginCreator.pluginOptions.bucketName'
+  | 'pluginCreator.pluginOptions.region'
   | 'pluginCreator.pluginOptions.pathCheck'
   | 'pluginCreator.pluginOptions.allExtensions'
   | 'pluginCreator.pluginOptions.isTSX'
@@ -3246,6 +3244,8 @@ type SitePluginFieldsEnum =
   | 'pluginOptions.typeName'
   | 'pluginOptions.fieldName'
   | 'pluginOptions.url'
+  | 'pluginOptions.bucketName'
+  | 'pluginOptions.region'
   | 'pluginOptions.pathCheck'
   | 'pluginOptions.allExtensions'
   | 'pluginOptions.isTSX'
@@ -3598,14 +3598,6 @@ type GraphQLSourceSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type AreaPageQueryVariables = Exact<{
-  code: Scalars['String'];
-  targetDate: Scalars['String'];
-}>;
-
-
-type AreaPageQuery = { readonly jedGraph: { readonly areaByCode: Maybe<Pick<JED_Area, 'id' | 'code' | 'name' | 'longName' | 'officialWeb' | 'hasWindData'>>, readonly peakElectricity: Maybe<ReadonlyArray<Maybe<Pick<JED_PeakElectricity, 'type' | 'amount' | 'supply' | 'percentage' | 'expectedHour'>>>>, readonly hourlyDemand: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'absTime' | 'hour' | 'amount' | 'supply' | 'percentage' | 'createdAt'>>>> } };
-
 type FrontpageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3618,6 +3610,14 @@ type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type AboutQuery = { readonly markdownRemark: Maybe<Pick<MarkdownRemark, 'html'>> };
+
+type AreaPageQueryVariables = Exact<{
+  code: Scalars['String'];
+  targetDate: Scalars['String'];
+}>;
+
+
+type AreaPageQuery = { readonly jedGraph: { readonly areaByCode: Maybe<Pick<JED_Area, 'id' | 'code' | 'name' | 'longName' | 'officialWeb' | 'hasWindData'>>, readonly peakElectricity: Maybe<ReadonlyArray<Maybe<Pick<JED_PeakElectricity, 'type' | 'amount' | 'supply' | 'percentage' | 'expectedHour'>>>>, readonly hourlyDemand: Maybe<ReadonlyArray<Maybe<Pick<JED_HourlyDemand, 'absTime' | 'hour' | 'amount' | 'supply' | 'percentage' | 'createdAt'>>>> } };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -3644,11 +3644,6 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
 type LayoutMetaQueryVariables = Exact<{ [key: string]: never; }>;
 

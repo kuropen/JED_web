@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const serverUrl = process.env.GRAPHQL_SERVER || "https://jed.kuropen.org/graphql"
+const serverUrl = process.env.GRAPHQL_SERVER || "https://jed-server.kuropen.org/graphql"
 
 module.exports = {
   siteMetadata: {
@@ -48,6 +48,13 @@ module.exports = {
         path: "./src/assets/",
       },
       __key: "assets",
+    },
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: 'jed.kuropen.org',
+        region: 'ap-northeast-1',
+      },
     },
   ],
 };

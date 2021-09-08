@@ -13,6 +13,6 @@ WORKDIR /srv
 RUN npm install
 
 RUN mkdir -p /var/spool/cron/crontabs && \
-    echo '*/10 1-23 * * * cd /srv && npm run build' >> /var/spool/cron/crontabs/root
+    echo '*/10 1-23 * * * cd /srv && ./cron-task.sh' >> /var/spool/cron/crontabs/root
 
 CMD ["./docker-task.sh"]
