@@ -24,15 +24,18 @@ interface AreaPageParams {
 }
 
 const AreaPage: NextPage<AreaPageProps> = (props) => {
+    const statFontColor = useColorModeValue("black", "gray.200")
+    const statBgColor = useColorModeValue("white", "gray.900")
+    const clientQueryResult = useQuery<AreaQueryResponse, AreaQueryParams>(areaQuery, {
+        variables: buildAreaQueryParams({
+            code: props.areaInfo?.areaByCode.code || ''
+        })
+    })
+
     if (props.areaInfo === undefined) {
         return null
     }
 
-    const clientQueryResult = useQuery<AreaQueryResponse, AreaQueryParams>(areaQuery, {
-        variables: buildAreaQueryParams({
-            code: props.areaInfo.areaByCode.code
-        })
-    })
     const {loading, error, refetch} = clientQueryResult
 
     const data = clientQueryResult.data || props.areaInfo
@@ -52,8 +55,6 @@ const AreaPage: NextPage<AreaPageProps> = (props) => {
     const lastUpdateTime = lastUpdateTimeCandidate.sort((a, b) => (b - a))[0] || new Date().getTime()
     const lastUpdateDate = moment(new Date(lastUpdateTime)).tz("Asia/Tokyo").format("YYYY年MM月DD日 HH時mm分")
     const area = data.areaByCode
-    const statFontColor = useColorModeValue("black", "gray.200")
-    const statBgColor = useColorModeValue("white", "gray.900")
 
     let statsZone = loadingBox
     

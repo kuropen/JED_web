@@ -27,11 +27,11 @@ interface DocumentFrontmatterAttributes {
 }
 
 const DocumentPage: NextPage<Partial<DocumentPageProps>> = (props) => {
+    const statFontColor = useColorModeValue("black", "gray.200")
+    const statBgColor = useColorModeValue("white", "gray.900")
     if (props.body === undefined || props.title === undefined) {
         return null
     }
-    const statFontColor = useColorModeValue("black", "gray.200")
-    const statBgColor = useColorModeValue("white", "gray.900")
     return (
         <Layout pageTitle={props.title}>
             <Box my="2" p="2" borderRadius="lg" boxShadow="lg" bg={statBgColor} color={statFontColor} maxWidth="3xl" mx={{base: "2", md: "auto"}}>

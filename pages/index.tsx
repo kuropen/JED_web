@@ -112,7 +112,7 @@ const Home: NextPage<HomePageProps> = (props) => {
 
 export default Home
 
-export const getStaicProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const {data} = await client.query<HomeQueryResponse>(
     {
       query: homeQuery,
