@@ -1,6 +1,5 @@
-import { Box, extendTheme, Flex, Heading, IconButton, Link, LinkBox, LinkOverlay, Menu, MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, VisuallyHidden } from "@chakra-ui/react"
+import { Box, extendTheme, Flex, Heading, Image, IconButton, Link, LinkBox, LinkOverlay, Menu, MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, VisuallyHidden } from "@chakra-ui/react"
 import Head from 'next/head'
-import Image from 'next/image'
 import NextLink from 'next/link'
 import * as React from "react"
 
@@ -77,8 +76,8 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = (props) => {
                 as="header"
                 align="center"
             >
-                <LinkBox as="nav" d={{base: "none", md: "block"}}>
-                    <Image src={elecwarnLogo} alt="Electricity Warning Project" width="48" height="48" />
+                <LinkBox as="nav" d={{base: "none", md: "block"}} w="12">
+                    <Image src={elecwarnLogo.src} alt="Electricity Warning Project" />
                     <LinkOverlay as={NextLink} href="/"><VisuallyHidden>トップページに戻る</VisuallyHidden></LinkOverlay>
                 </LinkBox>
                 <Heading
