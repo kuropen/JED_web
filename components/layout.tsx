@@ -76,10 +76,11 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = (props) => {
                 as="header"
                 align="center"
             >
-                <LinkBox as="nav" d={{base: "none", md: "block"}} w="12">
-                    <Image src={elecwarnLogo.src} alt="Electricity Warning Project" />
-                    <LinkOverlay as={NextLink} href="/"><VisuallyHidden>トップページに戻る</VisuallyHidden></LinkOverlay>
-                </LinkBox>
+                <Box as="nav" d={{base: "none", md: "block"}}>
+                    <Link as={NextLink} href="/">
+                        <Image src={elecwarnLogo.src} alt="" w="12" />
+                    </Link>
+                </Box>
                 <Heading
                     as="h1"
                     size="xl"
