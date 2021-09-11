@@ -1,5 +1,5 @@
-import { Box, Flex, Heading, LinkBox, LinkOverlay, SimpleGrid, Spacer } from '@chakra-ui/layout'
-import { StatGroup, StatLabel, useColorModeValue, VisuallyHidden, Text, Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/react'
+import { Box, Flex, Heading, SimpleGrid, Spacer } from '@chakra-ui/layout'
+import { StatGroup, StatLabel, useColorModeValue, VisuallyHidden, Text, Alert, AlertDescription, AlertIcon, AlertTitle, Link } from '@chakra-ui/react'
 import type { GetStaticProps, NextPage } from 'next'
 import NextLink from 'next/link'
 import React from 'react'
@@ -83,15 +83,15 @@ const Home: NextPage<HomePageProps> = (props) => {
           {area.name}エリア
         </Heading>
         {statBox}
-        <LinkBox as="nav" borderTop="1px" borderTopColor="gray.200" pt="3" mt="3">
+        <Box as="nav" borderTop="1px" borderTopColor="gray.200" pt="3" mt="3">
           <Flex align="center">
             <Spacer />
             <Text mr="2">
-              <LinkOverlay as={NextLink} href={`/${area.code}`}>詳細を確認する</LinkOverlay>
+              <Link as={NextLink} href={`/${area.code}`}>詳細を確認する</Link>
             </Text>
             <ArrowRightIcon />
           </Flex>
-        </LinkBox>          
+        </Box>          
       </Box>
     )
   })
