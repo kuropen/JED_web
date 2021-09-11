@@ -72,7 +72,7 @@ const AreaPage: NextPage<AreaPageProps> = (props) => {
         const demandStats = data.peakElectricity.map((peak) => {
             const label = (peak.type === "AMOUNT") ? "予想最大電力" : "予想ピーク使用率"
             return (
-                <DemandStat key={peak.type} percentage={peak.percentage} amount={peak.amount} supply={peak.supply}>
+                <DemandStat key={peak.type} headTagName="h3" percentage={peak.percentage} amount={peak.amount} supply={peak.supply}>
                     <Text d={{base: 'block', md: 'inline'}}>{label}</Text>
                     <Text d={{base: 'block', md: 'inline'}}>({peak.expectedHour})</Text>
                 </DemandStat>

@@ -63,10 +63,10 @@ const Home: NextPage<HomePageProps> = (props) => {
     if (peak && hourly) {
       statBox = (
         <StatGroup>
-          <DemandStat mr="1.5" percentage={hourly.percentage} amount={hourly.amount} supply={hourly.supply}>
+          <DemandStat headTagName="h4" mr="1.5" percentage={hourly.percentage} amount={hourly.amount} supply={hourly.supply}>
             <StatLabel pb={{base: '1.5em', md: 'inherit'}}>{hourly.hour}時台の使用状況</StatLabel>
           </DemandStat>
-          <DemandStat ml="1.5" percentage={peak.percentage} amount={peak.amount} supply={peak.supply}>
+          <DemandStat headTagName="h4" ml="1.5" percentage={peak.percentage} amount={peak.amount} supply={peak.supply}>
             <Box>
               <Text d={{base: 'block', md: 'inline'}}>予想ピーク使用率</Text>
               <Text d={{base: 'block', md: 'inline'}}>({peak.expectedHour})</Text>

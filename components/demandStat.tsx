@@ -5,13 +5,14 @@ import * as React from "react"
 import getProgressColor from "../utilities/getProgressColor"
 
 interface DemandStatProps extends StatProps {
+    headTagName: "h3" | "h4"
     percentage?: number,
     amount?: number,
     supply?: number,
 }
 
 const DemandStat: React.FC<React.PropsWithChildren<DemandStatProps>> = (props) => {
-    const {percentage, amount, supply} = props
+    const {percentage, amount, supply, headTagName} = props
     if (percentage === undefined || amount === undefined || supply === undefined) {
         return (<React.Fragment />)
     }
@@ -20,7 +21,7 @@ const DemandStat: React.FC<React.PropsWithChildren<DemandStatProps>> = (props) =
 
     return (
         <Stat>
-            <StatLabel as="h3">
+            <StatLabel as={headTagName}>
                 {props.children}
             </StatLabel>
             <StatNumber>
