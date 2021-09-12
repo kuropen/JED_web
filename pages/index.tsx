@@ -4,7 +4,7 @@ import type { GetStaticProps, NextPage } from 'next'
 import NextLink from 'next/link'
 import React from 'react'
 import Layout from '../components/layout'
-import homeQuery, {HomeQueryResponse, HomeQueryResponseAreaFragment} from '../queries/homeQuery'
+import homeQuery, {HomeQueryResponse, HomeQueryResponseArea, HomeQueryResponseAreaFragment } from '../queries/homeQuery'
 import client from '../utilities/apollo-client'
 import moment from 'moment-timezone'
 import LastUpdateBox from '../components/lastUpdateBox'
@@ -28,13 +28,13 @@ const Home: NextPage<HomePageProps> = (props) => {
 
   let dataSource: HomeQueryResult = {
     allArea: props.allArea || [],
-    lastUpdate: props.lastUpdate || new Date().toISOString()
+    lastUpdate: extractLastUpdate(props.allArea)
   }
   const { data, loading, error, refetch }: QueryResult<HomeQueryResponse> = useQuery(homeQuery)
   if (!loading && data !== undefined) {
     dataSource = {
       allArea: data.allArea,
-      lastUpdate: extractLastUpdate(data.hourlyDemand)
+      lastUpdate: extractLastUpdate(props.allArea)
     }
   }
 
@@ -118,10 +118,10 @@ export const getStaticProps: GetStaticProps = async () => {
       query: homeQuery,
     }
   )
-
+  
   const props: HomePageProps = {
     allArea: data.allArea,
-    lastUpdate: extractLastUpdate(data.hourlyDemand),
+    lastUpdate: extractLastUpdate(data.allArea),
   }
 
   return {

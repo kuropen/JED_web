@@ -3,14 +3,13 @@ import { Area, HourlyDemand, PeakElectricity } from "./queryTypes";
 
 export declare type HomeQueryResponse = {
     allArea: HomeQueryResponseAreaFragment[],
-    hourlyDemand: Pick<HourlyDemand, "createdAt">[],
 }
 
 export declare type HomeQueryResponseArea = 
     Pick<
         Area<
             Pick<PeakElectricity, "date" | "expectedHour" | "percentage" | "amount" | "supply">,
-            Pick<HourlyDemand, "hour" | "absTime" | "percentage" | "amount" | "supply">
+            Pick<HourlyDemand, "hour" | "absTime" | "percentage" | "amount" | "supply" | "createdAt">
         >, "code" | "name" | "peak" | "hourly"
     >
 
@@ -36,10 +35,8 @@ query HomeQuery {
             percentage
             amount
             supply
+            createdAt
         }
-    }
-    hourlyDemand(limit: 1) {
-      createdAt
     }
 }
 `
