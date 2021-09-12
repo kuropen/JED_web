@@ -34,7 +34,7 @@ const Home: NextPage<HomePageProps> = (props) => {
   if (!loading && data !== undefined) {
     dataSource = {
       allArea: data.allArea,
-      lastUpdate: extractLastUpdate(props.allArea)
+      lastUpdate: extractLastUpdate(data.allArea)
     }
   }
 
