@@ -1,0 +1,70 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+}
+
+type Area {
+    code: String!
+    csvFile: String!
+    csvFiveMinPos: Int!
+    csvHourlyPos: Int!
+    hasWindData: Boolean
+    hourly: [HourlyDemand]
+    id: Int!
+    longName: String!
+    name: String!
+    officialWeb: String!
+    peak: [PeakElectricity]
+}
+
+type FiveMinDemand {
+    absTime: Date
+    amount: Int!
+    area: String!
+    createdAt: Date!
+    date: Date!
+    solar: Int
+    time: String!
+    wind: Int
+}
+
+type HourlyDemand {
+    absTime: Date
+    amount: Int!
+    area: String!
+    createdAt: Date!
+    date: Date!
+    hour: Int!
+    percentage: Int!
+    supply: Int!
+}
+
+type PeakElectricity {
+    amount: Int!
+    area: String!
+    createdAt: Date!
+    date: Date!
+    expectedHour: String!
+    isTomorrow: Boolean
+    percentage: Int!
+    reservePct: Int
+    supply: Int!
+    type: PeakType!
+}
+
+type Query {
+    allArea: [Area!]!
+    areaByCode(code: String!): Area
+    fiveMinDemand(areaCode: String!, limit: Int): [FiveMinDemand]
+    hourlyDemand(areaCode: String!, limit: Int): [HourlyDemand]
+    peakElectricity(areaCode: String, date: String, type: PeakType): [PeakElectricity]
+}
+
+enum PeakType {
+    AMOUNT
+    PERCENTAGE
+}
+
+
+scalar Date

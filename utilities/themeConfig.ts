@@ -10,7 +10,7 @@ const themeConfig: Pick<Theme, "fonts" | "config"> = {
         mono: PLEX_MONO_CONFIG,
     },
     config: {
-        initialColorMode: "light",
+        initialColorMode: "dark",
         useSystemColorMode: true,
     }
 }
