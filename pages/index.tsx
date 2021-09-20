@@ -4,7 +4,7 @@ import type { GetStaticProps, NextPage } from 'next'
 import NextLink from 'next/link'
 import React from 'react'
 import Layout from '../components/layout'
-import homeQuery, {HomeQueryResponse, HomeQueryResponseArea, HomeQueryResponseAreaFragment } from '../queries/homeQuery'
+import homeQuery, {HomeQueryResponse, HomeQueryResponseArea, HomeQueryResponseAreaFragment, homeStaticQuery } from '../queries/homeQuery'
 import client from '../utilities/apollo-client'
 import moment from 'moment-timezone'
 import LastUpdateBox from '../components/lastUpdateBox'
@@ -115,7 +115,7 @@ export default Home
 export const getStaticProps: GetStaticProps = async () => {
   const {data} = await client.query<HomeQueryResponse>(
     {
-      query: homeQuery,
+      query: homeStaticQuery,
     }
   )
   
