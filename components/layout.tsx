@@ -1,3 +1,8 @@
+/*
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
 import { Box, extendTheme, Flex, Heading, Image, IconButton, Link, LinkBox, LinkOverlay, Menu, MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, VisuallyHidden } from "@chakra-ui/react"
 import Head from 'next/head'
 import NextLink from 'next/link'
@@ -127,7 +132,8 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = (props) => {
                 {children}
             </Box>
             <Box as="address" fontStyle="normal" mx="2" mt="5">
-                Copyright &copy; <Link href="https://kuropen.org/" rel="author" isExternal>Kuropen</Link>. 
+                Copyright &copy; <Link href="https://kuropen.org/" rel="author" isExternal>Kuropen</Link>.<br />
+                Texts in this website is available under the <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license" isExternal>Creative Commons Attribution-NonCommercial-ShareAlike 4.0</Link> License.<br />
                 Electricity Warning Project Icon is provided by <Link href="https://twitter.com/haretter" isExternal>Hareta</Link> and 
                 licensed under <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/" isExternal>Creative Commons Attribution-NonCommercial-ShareAlike 3.0</Link> License.
             </Box>

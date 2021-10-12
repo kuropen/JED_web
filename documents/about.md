@@ -23,7 +23,7 @@ Kuropenは東日本大震災後の2012年から、各地の電力会社からの
 
 |役割      |ソフトウェア名                                       |ライセンス                                                |
 |----------|---------------------------------------------------|---------------------------------------------------------|
-|Webページ |[JED_web](https://github.com/kuropen/JED_web)       |CC-BY-NC-SA 4.0                                          |
+|Webページ |[JED_web](https://github.com/kuropen/JED_web)       |Mozilla Public License 2.0                               |
 |APIサーバ |[JED_server](https://github.com/kuropen/JED_Server) |GNU Affero General Public License 3.0                    |
 |CSVクローラ|[elecwarn4](https://github.com/kuropen/elecwarn4)  |GNU Affero General Public License 3.0                    |
 
@@ -32,12 +32,11 @@ Kuropenは東日本大震災後の2012年から、各地の電力会社からの
 - Webページ
   - 記述言語: TypeScript (原則) / JavaScript (例外)
   - フレームワーク: React / NextJS
-  - プラットフォーム: Cloudflare Pages + Cloudflare CDN
+  - プラットフォーム: Vercel
 - APIサーバ
   - 記述言語: TypeScript (原則) / JavaScript (例外)
   - フレームワーク: Express
-  - プラットフォーム: Amazon EC2 + Cloudflare WAF
+  - プラットフォーム: Amazon ECS (Fargate) + Cloudflare WAF
 - CSVクローラ
   - 記述言語: Python
   - プラットフォーム: AWS Lambda
-- 三者間プロトコル: GraphQL
